@@ -1,7 +1,7 @@
 package piotrowski.marcin.repos.data.api
 
 import io.reactivex.Observable
-import piotrowski.marcin.repos.data.models.Repository
+import piotrowski.marcin.repos.data.models.github.GitHubRepository
 import piotrowski.marcin.repos.util.Constants
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -12,8 +12,8 @@ import retrofit2.http.Query
 interface GitHubApi {
 
     @GET(Constants.GITHUB_REPOSITORIES_ENDPOINT)
-    fun getReposByPage(@Query(Constants.GITHUB_ADI_PARAMETER_SINCE) since: String):
-            Observable<List<Repository>>
+    fun getReposByPage(@Query(Constants.GITHUB_API_PARAMETER_SINCE) since: String):
+            Observable<List<GitHubRepository>>
 
     companion object {
         fun create(): GitHubApi {

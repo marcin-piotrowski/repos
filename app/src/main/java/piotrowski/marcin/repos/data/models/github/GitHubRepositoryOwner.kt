@@ -1,4 +1,4 @@
-package piotrowski.marcin.repos.data.models
+package piotrowski.marcin.repos.data.models.github
 
 import com.squareup.moshi.Json
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
 import piotrowski.marcin.repos.R
 import piotrowski.marcin.repos.data.models.Repository
+import piotrowski.marcin.repos.data.models.github.GitHubRepository
 
 class ListActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package piotrowski.marcin.repos.data.models
+package piotrowski.marcin.repos.data.models.github
 
 import com.squareup.moshi.Json
 
@@ -8,5 +8,5 @@ data class GitHubRepository(
         @Json(name = "name")
         val name: String,
         @Json(name = "description")
-        val description: String
+        val description: String?
 )

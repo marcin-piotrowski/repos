@@ -1,4 +1,12 @@
 package piotrowski.marcin.repos.data.models.bitbucket
 
-class BitBucketRepository {
-}
+import com.squareup.moshi.Json
+
+data class BitBucketRepository (
+        @Json(name = "owner")
+        val owner: BitBucketRepositoryOwner,
+        @Json(name = "name")
+        val name: String,
+        @Json(name = "description")
+        val description: String
+)

@@ -27,10 +27,10 @@ class ListAdapter(private val dataset: List<Repository>, private val context: Co
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context)
-                .load(dataset[position].owner.avatar_url)
+                .load(dataset[position].ownerAvatarUrl)
                 .into(holder.avatarImgView)
         holder.titleTxtView.text = dataset[position].name
-        holder.ownerTxtView.text = dataset[position].owner.login
+        holder.ownerTxtView.text = dataset[position].ownerName
     }
 
     override fun getItemCount(): Int {

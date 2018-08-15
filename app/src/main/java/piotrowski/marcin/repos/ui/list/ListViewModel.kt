@@ -6,6 +6,7 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import piotrowski.marcin.repos.data.models.Repository
+import piotrowski.marcin.repos.data.models.github.GitHubRepository
 import piotrowski.marcin.repos.data.repositories.RepositoriesRepository
 
 class ListViewModel : ViewModel() {
