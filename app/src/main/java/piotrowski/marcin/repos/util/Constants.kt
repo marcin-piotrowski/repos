@@ -8,6 +8,6 @@ object Constants {
     const val GITHUB_API_PARAMETER_SINCE = "since"
 
     //BITBUCKET
-    const val BITBUCKET_MASTER_ENDPOINT = "https://api.bitbucket.org/2.0/"
-    const val BITBUCKET_REPOSITORIES_ENDPOINT = "repositories?fields=values.name,values.owner,values.description"
+    const val BITBUCKET_MASTER_ENDPOINT = "https://api.bitbucket.org/"
+    const val BITBUCKET_REPOSITORIES_ENDPOINT = "2.0/repositories?fields=values.name,values.owner,values.description"
 }

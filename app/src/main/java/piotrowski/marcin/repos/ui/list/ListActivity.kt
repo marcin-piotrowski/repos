@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list.*
 import piotrowski.marcin.repos.R
 import piotrowski.marcin.repos.data.models.Repository
-import piotrowski.marcin.repos.data.models.github.GitHubRepository
+
 
 class ListActivity : AppCompatActivity() {
 
@@ -16,7 +16,8 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val linearLayout = LinearLayoutManager(this)
+        recyclerView.layoutManager = linearLayout
 
         val viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.data.observe(this, Observer<List<Repository>> { reposList ->
@@ -28,5 +29,8 @@ class ListActivity : AppCompatActivity() {
                 }
             }
         })
+
+        recyclerView.addOnScrollListener(InfiniteScrollListener({ viewModel.loadMore() }, linearLayout))
+        btnSort.setOnClickListener({view -> viewModel.sort()})
     }
 }

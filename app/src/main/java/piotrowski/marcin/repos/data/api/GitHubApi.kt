@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface GitHubApi {
 
     @GET(Constants.GITHUB_REPOSITORIES_ENDPOINT)
-    fun getReposByPage(@Query(Constants.GITHUB_API_PARAMETER_SINCE) since: String):
+    fun getRepos():
             Observable<List<GitHubRepository>>
 
     companion object {

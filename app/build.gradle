@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -35,6 +37,10 @@ dependencies {
     //aac
     implementation "android.arch.lifecycle:viewmodel:$rootProject.architectureComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
+    implementation "android.arch.persistence.room:runtime:$rootProject.architectureComponentsVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.architectureComponentsVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.architectureComponentsVersion"
+
 
     //retrofit2
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2Version"

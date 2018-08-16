@@ -11,7 +11,6 @@ import retrofit2.http.GET
 interface BitBucketApi {
 
     @GET(Constants.BITBUCKET_REPOSITORIES_ENDPOINT)
-
     fun getReposByPage():
             Observable<BitBucketResponse>
 
