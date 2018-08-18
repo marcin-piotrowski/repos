@@ -24,9 +24,6 @@ class DetailActivity : AppCompatActivity() {
                     .into(imgAvatar)
             txtTitle.text = repo?.name
             txtOwner.text = repo?.ownerName
-            txtDescripotion.text = repo?.description
-
-        })
+            tatDescription.text = repo?.description })
     }
-
 }

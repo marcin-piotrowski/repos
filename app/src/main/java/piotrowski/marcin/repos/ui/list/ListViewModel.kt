@@ -42,12 +42,12 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun sort(){
-        if(isSorted){
+    fun sort() {
+        if (isSorted) {
             data.value = originalList
             originalList = emptyList()
             isSorted = false
-        }else{
+        } else {
             originalList = data.value
             data.value = data.value?.sortedBy { it.name }
             isSorted = true

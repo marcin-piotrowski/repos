@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.activity_list.*
 import piotrowski.marcin.repos.R
 import piotrowski.marcin.repos.data.models.Repository
 
-
 class ListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +21,15 @@ class ListActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.data.observe(this, Observer<List<Repository>> { reposList ->
             recyclerView.apply {
-                adapter = if(reposList == null)
+                adapter = if (reposList == null)
                     ListAdapter(listOf(), context)
-                else{
+                else {
                     ListAdapter(reposList, context)
                 }
             }
         })
 
         recyclerView.addOnScrollListener(InfiniteScrollListener({ viewModel.loadMore() }, linearLayout))
-        btnSort.setOnClickListener{viewModel.sort()}
+        btnSort.setOnClickListener { viewModel.sort() }
     }
 }

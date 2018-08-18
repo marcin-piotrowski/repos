@@ -22,9 +22,9 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     val data: MutableLiveData<Repository>
         get() {
             if (innerData.value == null)
-                repository.getReposById(id)
+                repository.getRepoById(id)
                         .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.from(Looper.getMainLooper()))
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { result -> innerData.value = result }
             return innerData
         }

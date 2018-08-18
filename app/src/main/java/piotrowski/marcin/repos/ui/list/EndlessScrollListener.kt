@@ -2,7 +2,6 @@ package piotrowski.marcin.repos.ui.list
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 
 class InfiniteScrollListener(
         private val func: () -> Unit,

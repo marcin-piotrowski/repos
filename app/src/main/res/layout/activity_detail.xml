@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/main_margin"
     tools:context=".ui.detail.DetailActivity">
 
     <ImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="128dp"
-        android:layout_height="128dp" />
+        android:layout_width="@dimen/avatar_big"
+        android:layout_height="@dimen/avatar_big" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="@dimen/half_margin"
         android:layout_toRightOf="@id/imgAvatar">
 
         <TextView
@@ -25,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:textSize="20sp"
+            android:textSize="@dimen/txt_title"
             android:textColor="@android:color/black"/>
 
         <TextView
@@ -35,9 +34,9 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txtDescripotion"
+        android:id="@+id/tatDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/half_margin"
         android:layout_below="@id/imgAvatar"/>
 </RelativeLayout>

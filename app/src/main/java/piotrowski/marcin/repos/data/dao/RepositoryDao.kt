@@ -5,8 +5,6 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import io.reactivex.Flowable
-import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.Single
 import piotrowski.marcin.repos.data.models.Repository
 

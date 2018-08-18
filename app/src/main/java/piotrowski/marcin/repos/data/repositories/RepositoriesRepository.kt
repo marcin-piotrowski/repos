@@ -14,15 +14,15 @@ import piotrowski.marcin.repos.data.models.github.GitHubRepository
 
 class RepositoriesRepository(private val context: Context) {
 
-    fun getReposById(id: Long): Single<Repository> {
+    fun getRepoById(id: Long): Single<Repository> {
         return repositoriesDB.getById(id)
     }
 
     fun getRepos(): Flowable<List<Repository>> {
 
-        val repos = repositoriesDB.getAll()
+        val reposFlowable = repositoriesDB.getAll()
 
-        repos.subscribeOn(Schedulers.io())
+        reposFlowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ dataBaseResult ->
                     if (dataBaseResult.isEmpty()) {
@@ -35,7 +35,7 @@ class RepositoriesRepository(private val context: Context) {
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe { apisResult ->
-                                    repos.unsubscribeOn(AndroidSchedulers.mainThread())
+                                    reposFlowable.unsubscribeOn(AndroidSchedulers.mainThread())
                                     apisResult.forEach({ repositoriesDB.insert(it) })
                                 }
                     }
@@ -56,6 +56,7 @@ class RepositoriesRepository(private val context: Context) {
                             it.description,
                             Repository.Source.GITHUB))
         }
+
         return result
     }
 
