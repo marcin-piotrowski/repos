@@ -15,14 +15,14 @@ import piotrowski.marcin.repos.ui.detail.DetailActivity
 class ListAdapter(private val dataset: List<Repository>, private val context: Context) :
         RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val avatarImgView = view.imgAvatar
         val titleTxtView = view.txtTitle
         val ownerTxtView = view.txtOwner
         val bbLogoImgView = view.bbLogo
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.ViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_repository, parent, false) as View
         return ViewHolder(view)
@@ -34,13 +34,15 @@ class ListAdapter(private val dataset: List<Repository>, private val context: Co
                 .into(holder.avatarImgView)
         holder.titleTxtView.text = dataset[position].name
         holder.ownerTxtView.text = dataset[position].ownerName
-        if(dataset[position].source == "b"){
-            holder.bbLogoImgView.visibility = View.VISIBLE
-        }
+
         val intent = Intent(context, DetailActivity::class.java).apply {
             putExtra("id", dataset[position].id)
         }
-        holder.view.setOnClickListener({view -> context.startActivity(intent) })
+        holder.view.setOnClickListener { context.startActivity(intent) }
+
+        if (dataset[position].source == Repository.Source.BITBUCKET) {
+            holder.bbLogoImgView.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int {

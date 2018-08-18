@@ -15,8 +15,12 @@ data class Repository(
         @ColumnInfo(name = "description")
         val description: String?,
         @ColumnInfo(name = "source")
-        val source: String
+        val source: Source
 ){
         @ColumnInfo(name = "id")
         @PrimaryKey(autoGenerate = true) var id: Long = 0
+
+        enum class Source {
+                GITHUB, BITBUCKET, UNKNOWN
+        }
 }

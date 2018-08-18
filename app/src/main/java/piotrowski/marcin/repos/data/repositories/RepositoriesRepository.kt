@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import piotrowski.marcin.repos.data.api.BitBucketApi
 import piotrowski.marcin.repos.data.api.GitHubApi
-import piotrowski.marcin.repos.data.databases.RepositoriesDB
+import piotrowski.marcin.repos.data.databases.repositories.RepositoriesDB
 import piotrowski.marcin.repos.data.models.Repository
 import piotrowski.marcin.repos.data.models.bitbucket.BitBucketResponse
 import piotrowski.marcin.repos.data.models.github.GitHubRepository
@@ -52,8 +52,9 @@ class RepositoriesRepository(private val context: Context) {
                     Repository(
                             it.owner.login,
                             it.owner.avatar_url,
-                            it.name, it.description,
-                            "g"))
+                            it.name,
+                            it.description,
+                            Repository.Source.GITHUB))
         }
         return result
     }
@@ -68,7 +69,7 @@ class RepositoriesRepository(private val context: Context) {
                             it.owner.links.avatar.href,
                             it.name,
                             it.description,
-                            "b"))
+                            Repository.Source.BITBUCKET))
         }
 
         return result
