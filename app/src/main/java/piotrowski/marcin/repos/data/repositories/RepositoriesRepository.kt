@@ -1,12 +1,10 @@
 package piotrowski.marcin.repos.data.repositories
 
 import android.content.Context
-import android.util.Log
 import io.reactivex.Flowable
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 import piotrowski.marcin.repos.data.api.BitBucketApi
 import piotrowski.marcin.repos.data.api.GitHubApi
 import piotrowski.marcin.repos.data.databases.RepositoriesDB
@@ -16,47 +14,34 @@ import piotrowski.marcin.repos.data.models.github.GitHubRepository
 
 class RepositoriesRepository(private val context: Context) {
 
-    fun getReposById(id: Long): Flowable<Repository> {
+    fun getReposById(id: Long): Single<Repository> {
         return repositoriesDB.getById(id)
     }
 
-    fun getRepos(): Observable<List<Repository>> {
+    fun getRepos(): Flowable<List<Repository>> {
 
-        val reposList = PublishSubject.create<List<Repository>>()
+        val repos = repositoriesDB.getAll()
 
-        repositoriesDB
-                .getAll()
-                .subscribeOn(Schedulers.io())
+        repos.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ dataBaseResult ->
-
                     if (dataBaseResult.isEmpty()) {
-
-                        Log.e(this.toString(), "Gonna to fetch")
-
                         gitHubApi.getRepos()
-                                .map({ castFromGitHub(it) })
+                                .map { castFromGitHub(it) }
+                                .mergeWith(
+                                        bitBucketApi.getRepos()
+                                                .map { castFromBitBucket(it) }
+                                )
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe({ apisResult ->
+                                .subscribe { apisResult ->
+                                    repos.unsubscribeOn(AndroidSchedulers.mainThread())
                                     apisResult.forEach({ repositoriesDB.insert(it) })
-
-                                    repositoriesDB.getAll()
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe({ result ->
-                                                reposList.onNext(result)
-                                                Log.e(this.toString(), "Downloaded and saved")
-                                            })
-                                })
-
-                    } else {
-                        Log.e(this.toString(), "Stored data used")
-                        reposList.onNext(dataBaseResult)
+                                }
                     }
                 })
 
-        return reposList
+        return repositoriesDB.getAll()
     }
 
     private fun castFromGitHub(list: List<GitHubRepository>): List<Repository> {
@@ -79,7 +64,7 @@ class RepositoriesRepository(private val context: Context) {
         response.values.forEach {
             result.add(
                     Repository(
-                            it.owner.name,
+                            it.owner.username,
                             it.owner.links.avatar.href,
                             it.name,
                             it.description,

@@ -31,6 +31,6 @@ class ListActivity : AppCompatActivity() {
         })
 
         recyclerView.addOnScrollListener(InfiniteScrollListener({ viewModel.loadMore() }, linearLayout))
-        btnSort.setOnClickListener({view -> viewModel.sort()})
+        btnSort.setOnClickListener{viewModel.sort()}
     }
 }
