@@ -8,7 +8,7 @@ import android.content.Context
 import piotrowski.marcin.repos.data.dao.RepositoryDao
 import piotrowski.marcin.repos.data.models.Repository
 
-@Database(entities = [(Repository::class)], version = 1)
+@Database(entities = [(Repository::class)], version = 1, exportSchema =  false)
 @TypeConverters(Converters::class)
 abstract class RepositoriesDB : RoomDatabase() {
     abstract fun repositoryDao(): RepositoryDao
