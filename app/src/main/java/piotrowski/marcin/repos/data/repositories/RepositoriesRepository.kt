@@ -1,18 +1,20 @@
 package piotrowski.marcin.repos.data.repositories
 
-import android.content.Context
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import piotrowski.marcin.repos.data.api.BitBucketApi
 import piotrowski.marcin.repos.data.api.GitHubApi
-import piotrowski.marcin.repos.data.databases.repositories.RepositoriesDB
+import piotrowski.marcin.repos.data.dao.RepositoryDao
 import piotrowski.marcin.repos.data.models.Repository
 import piotrowski.marcin.repos.data.models.bitbucket.BitBucketResponse
 import piotrowski.marcin.repos.data.models.github.GitHubRepository
+import javax.inject.Inject
 
-class RepositoriesRepository(private val context: Context) {
+class RepositoriesRepository @Inject constructor(private val gitHubApi: GitHubApi,
+                                                 private val bitBucketApi: BitBucketApi,
+                                                 private val repositoriesDB: RepositoryDao) {
 
     fun getRepoById(id: Long): Single<Repository> {
         return repositoriesDB.getById(id)
@@ -74,17 +76,5 @@ class RepositoriesRepository(private val context: Context) {
         }
 
         return result
-    }
-
-    private val gitHubApi by lazy {
-        GitHubApi.create()
-    }
-
-    private val bitBucketApi by lazy {
-        BitBucketApi.create()
-    }
-
-    private val repositoriesDB by lazy {
-        RepositoriesDB.create(context)
     }
 }

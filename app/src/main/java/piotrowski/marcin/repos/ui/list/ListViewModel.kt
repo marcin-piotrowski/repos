@@ -5,8 +5,10 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import piotrowski.marcin.repos.ReposApp
 import piotrowski.marcin.repos.data.models.Repository
 import piotrowski.marcin.repos.data.repositories.RepositoriesRepository
+import javax.inject.Inject
 
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -14,8 +16,13 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private var isSorted: Boolean = false
     private var originalList: List<Repository>? = emptyList()
 
-    private val repository: RepositoriesRepository = RepositoriesRepository(application.baseContext)
+    @Inject
+    lateinit var repository: RepositoriesRepository
     private val innerData: MutableLiveData<List<Repository>> = MutableLiveData()
+
+    init {
+        (application as ReposApp).appComponent.inject(this)
+    }
 
     val data: MutableLiveData<List<Repository>>
         get() {
